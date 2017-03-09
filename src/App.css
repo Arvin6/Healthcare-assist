@@ -1,0 +1,105 @@
+@media(max-width: 761px){
+.dash>ul{
+  margin-top:0;
+}
+.brandname{
+
+}
+.Hideinxs{
+  display:none;
+}
+}
+
+.App {
+  border: 2px solid #000;
+  font-family: Helvetica;
+  text-align:center;
+}
+
+.navbar{
+  background-color: blue;
+}
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+.navbar-brand>img {
+  float: left !important;
+  padding: 7px 20px;
+  height: 80px;
+}
+
+.remainder{
+  display:flex;
+  align-items:flex-end;
+  border: 1px solid #EEE;
+  border-radius: 25px;
+  padding:1%;
+  background-color: #EEE;
+  font-size: 1em;
+  margin:2% 1% 2% 1%;
+}
+.remainder:hover{
+  color: white;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+.infocomp{
+  margin: 2% 0 2% 0;
+  display:inherit;
+  padding: 2%;
+  border: 2px solid #626262;
+  border-radius: 25px;
+}
+.infoitem{
+  text-transform: capitalize;
+  margin:2% 4% 2% 4%;
+  font-size: 1.5rem;
+  height: 70px;
+  background-color: #337ab7;
+  color: #FFF;
+  padding:1%;
+  border: 1px solid #626262;
+  border-radius: 15px;
+  text-overflow:ellipsis;
+}
+.infoitem>ul>li{
+  float:left;
+  margin-left: 30px;
+}
+
+
+#apt{
+  text-align: right;
+  font-size: 2em;
+  padding:0;
+  margin:0;
+}
+
+.dash>ul{
+  padding:2% 5% 2% 5%;
+  margin: 35% 0 5% 0;
+  font-size: 1em;
+  background-color: #EEE;
+  display: inline-flex;
+  border-radius: 25px;
+  list-style: none;
+}
+.navbar-brand{
+  padding: 0;
+  margin:0;
+}
+
+.dash>ul>li{
+  float:none;
+  margin: 5px;
+}
+.dash>ul>li>Button{
+  border-radius: 50%;
+  }
+
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
