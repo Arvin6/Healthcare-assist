@@ -80,7 +80,7 @@ class App extends React.Component{
          let obj ={
            "label":member.date,
            "value":calcval,
-           //"color":(calcval===high)?"#ff3823":(calcval===low)?"#a8c6fa":"#72bb53",
+           "color":(calcval===high)?"#ff3823":(calcval===low)?"#a8c6fa":"#72bb53",
            "category": (calcval===high)?"High":(calcval===low)?"Low":"Normal",
            "tooltext": "BP: "+(member.sys)+"/"+(member.dia),
            "displayValue": (calcval===high)?"High":(calcval===low)?"Low":"Normal"
@@ -108,7 +108,7 @@ class App extends React.Component{
   render(){
     return (
       <div className="App">
-      <Header />
+      <Header/>
       <Homecontent user={this.state.user}
                family={this.state.family}
                avatar={this.state.avatar}

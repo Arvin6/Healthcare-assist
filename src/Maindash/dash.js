@@ -11,13 +11,13 @@ class Dash extends React.Component{
     var that = this;    //This thing took me a day to figure out, stupid JS.
 
     let piechart_config = {
-      id:"dashpie",
-      type:"pie3d",
-      dataFormat:"json",
-      enablemultislicing:"1",
-      width:"100%",
-      dataSource: this.props.pieCdata,
-      events:{
+      "id":"dashpie",
+      "type":"pie3d",
+      "dataFormat":"json",
+      "enableMultiSlicing":"0",
+      "width":"100%",
+      "dataSource": this.props.pieCdata,
+      "events":{
         "slicingStart": function(evts,sliceprop){
              if(sliceprop.slicedState===false){
                 //console.log(sliceprop.data.categoryLabel, evts.sender.id);
