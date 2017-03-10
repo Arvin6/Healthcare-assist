@@ -1,14 +1,10 @@
 import React from 'react'
 import './App.css'
-import logo from './logo.svg'
-import placeholder from './avatar_placeholder.png'
+import Header from './Maindash/header'
+import Homecontent from './Maindash/home'
+
+import placeholder from '../avatar_placeholder.png'
 // This is for the chart rendering
-import Fusioncharts from 'fusioncharts'
-import charts from 'fusioncharts/fusioncharts.charts'
-import ReactFC from 'react-fusioncharts'
-//
-import { Button, ButtonGroup, DropdownButton, Image, MenuItem, Grid, Row, Col, Glyphicon, Navbar, NavItem, Nav, NavDropdown } from 'react-bootstrap'
-charts(Fusioncharts)
 
 var userdata = {
   username: "user_name",
@@ -34,6 +30,8 @@ var userdata = {
     ],
 }
 
+
+// ^ The sample json
 var piedata = {
   data:[
     {
@@ -68,10 +66,10 @@ class App extends React.Component{
     };
   }
   componentWillMount(){
+
     // This is where we get all the data.
 
     // Above space is reserved for the fetch method
-
 
     // We clean up  the BP data to something useable by the main bar chart.
     let graphdata =  userdata.Bp.map( function(member){
@@ -82,7 +80,7 @@ class App extends React.Component{
          let obj ={
            "label":member.date,
            "value":calcval,
-           "color":(calcval===high)?"#ff3823":(calcval===low)?"#a8c6fa":"#72bb53",
+           //"color":(calcval===high)?"#ff3823":(calcval===low)?"#a8c6fa":"#72bb53",
            "category": (calcval===high)?"High":(calcval===low)?"Low":"Normal",
            "tooltext": "BP: "+(member.sys)+"/"+(member.dia),
            "displayValue": (calcval===high)?"High":(calcval===low)?"Low":"Normal"
@@ -110,8 +108,8 @@ class App extends React.Component{
   render(){
     return (
       <div className="App">
-      <Header/>
-      <Content user={this.state.user}
+      <Header />
+      <Homecontent user={this.state.user}
                family={this.state.family}
                avatar={this.state.avatar}
                apptdate={this.state.nextappt}
@@ -124,271 +122,6 @@ class App extends React.Component{
     );
   }
 }
-
-// Stateless function component for Navbar
-
-const Header = (props) => (
-  <Navbar collapseOnSelect>
-      <Navbar.Header>
-        <Navbar.Brand>
-          <Image src={logo} responsive />
-          <p>Personal Healthcare Assist</p>
-        </Navbar.Brand>
-        <Navbar.Toggle/>
-      </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav pullRight>
-                <NavItem><Glyphicon glyph="envelope"/></NavItem>
-                    <NavDropdown id="notifs" eventKey={3} title="Notifications">
-                        <MenuItem eventKey={3.1}>No new notifications</MenuItem>
-                    </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-  </Navbar>
-  )
-
-// Stateful component
-
-class Content extends React.Component{
-
-  constructor(){
-    super();
-    this.state={
-    //  main_chartdata:[]
-    filtertext: "",
-    filtersource:""
-    }
-    this.filtercallback=this.filtercallback.bind(this);
-  }
-
-  componentWillMount()
-  {
-    //console.log("Content will mount");
-  }
-
-  filtercallback(c,k){
-    //  console.log("In callback",c,k);
-      this.setState({ filtertext: c,filtersource:k },function(){
-        console.log("state of mainchart",c,k)
-      });
-  }
-
-  componentWillReceiveProps(nextProps,nextState){
-    console.log("Receives props");
-  //  console.log(this.state.filtertext);
-  }
-
-  componentDidUpdate(){
-    //console.log("Did update");
-    //console.log(this.state.filtertext,"--")
-  }
-
-  render(){
-    //console.log("is called");
-    let mainchartsource=[];
-    if(this.state.filtertext&&this.state.filtertext.length!==0)
-    { //console.log("happening");
-      mainchartsource=this.props.mainCdata.filter(
-        (member) => (member.category===this.state.filtertext)
-    );
-  }else{
-      mainchartsource=this.props.mainCdata//this.state.main_chartdata;
-  }
-    //console.log(mainchartsource);
-    return (
-      <div>
-        <Topcontent user={this.props.user} filterSource={this.state.filtersource} mainCdata={mainchartsource} avatar={this.props.avatar} family={this.props.family}/>
-        <Dash pieCdata={this.props.pieCdata} onslice={this.filtercallback} />
-        <Remainder date={this.props.apptdate} />
-        <Info medinfo={this.props.medinfo} />
-      </div>
-    );
-  }
-}
-
-
-function todatestring(dtstr){
-  //console.log("Date type: ",typeof(dtstr));
-  return dtstr.toDateString();
-}
-
-function datesbetween(date2){
-  let today = new Date();
-  let diff = Math.abs(date2.getTime() - today.getTime());
-  return (Math.ceil( diff / (1000*3600*24) ))-1;
-}
-
-
-
-class Topcontent extends React.Component{
-  render(){
-    let chartData  = {
-      chart:    {
-                "caption": "Health trend",
-                 "subcaption": "Blood Pressure",
-                 "xAxisName": "Days",
-                 "yAxisName": "Reading",
-                 "usePlotGradientColor":"0",
-                 "theme": "ocean",
-                 "enablemultislicing":"0",
-                 "showyaxisvalues":"0",
-                 "showtooltip":"1"
-                 },
-                   data: this.props.mainCdata
-                }
-    let mainchartconfig = {
-                  type: "column2d",
-                  width: "100%",
-                  dataFormat:"json",
-                  dataSource:chartData,
-                  eventSource: this.props.filtersource,
-                  impactedBy:['dashpie']
-                }
-    return (
-    <div>
-      <Grid>
-        <Row>
-            <Col lg={2} md={2} sm={3} xs={5} xsOffset={1} mdOffset={0} smOffset={0} lgOffset={0}>
-
-              <div className="avatardiv">
-                <Image src={this.props.avatar} alt={this.props.user} responsive />
-                <ButtonGroup justified>
-                  <DropdownButton id="familydropdown" bsStyle="primary" title={this.props.user}>
-                    {
-                      this.props.family.map( (member) =>
-                              <MenuItem key={member.Name.toString()}> {member.Name} </MenuItem> )
-                    }
-                  </DropdownButton>
-                </ButtonGroup>
-              </div>
-
-            </Col>
-            <Col xsHidden md={7} sm={8} lg={8} smOffset={1} mdOffset={2} lgOffset={2}>
-
-            <div className="main-trend">
-                              <ReactFC id="main-trend"
-                               {...mainchartconfig}
-                               />
-            </div>
-
-                </Col>
-        </Row>
-        </Grid>
-    </div>
-    )
-  }
-}
-
-class Dash extends React.Component{
-  constructor(){
-    super();
-    this.state ={
-      pieData :{}
-    }
-  }
-
-  componentWillMount()
-  {
-    this.setState({
-      pieData: this.props.pieCdata
-    });
-  }
-
-  render(){
-    var that = this;
-    let piechart_obj = {
-      id:"dashpie",
-      type:"pie3d",
-      dataFormat:"json",
-      enablemultislicing:"0",
-      width:"100%",
-      dataSource: this.props.pieCdata,
-      events:{
-        "slicingStart": function(evts,sliceprop){
-             if(sliceprop.slicedState===false){
-                //console.log(sliceprop.data.categoryLabel, evts.sender.id);
-                that.props.onslice(sliceprop.data.categoryLabel,evts.sender.id);
-              }else{
-                //console.log("y",evts.sender.id)
-                that.props.onslice("",evts.sender.id)
-              }}
-            }};
-
-          return (
-          <Grid>
-          <Row>
-            <Col lgOffset={4} mdOffset={0} smOffset={0} lg={4} md={5} sm={6} xs={12}>
-              <div className="dash">
-                <ul>
-                <li>  <Button className="btn btn-default btn-circle" bsSize="large" bsStyle="primary"> <Glyphicon glyph="user" /></Button>  </li>
-                <li>  <Button className="btn btn-default btn-circle" bsSize="large" bsStyle="primary"> <Glyphicon glyph="cloud-download" /> </Button>  </li>
-                <li>  <Button className="btn btn-default btn-circle" bsSize="large" bsStyle="primary"><Glyphicon glyph="plus-sign"/> </Button>  </li>
-                <li>  <Button className="btn btn-default btn-circle" bsSize="large" bsStyle="primary"><Glyphicon glyph="heart"/></Button>  </li>
-                </ul>
-              </div>
-            </Col>
-            <Col lg={4} md={6} sm={6} xs={12} >
-              <div className="aux-chart">
-                  <ReactFC
-                    {...piechart_obj}/>
-            </div>
-            </Col>
-            </Row>
-          </Grid>
-                  )
-        }
-}
-
-const Remainder = (props) => (
-  <Grid>
-    <Row>
-      <div className="remainder">
-      <Col lg={11} md={11} sm={11} xs={11}>
-          {
-            <p>Next appointment is on {todatestring(props.date)} (in {datesbetween(props.date)} days) </p>
-          }
-      </Col>
-      <Col id="apt" lg={1} md={1} sm={1} xs={1}>
-          <Glyphicon glyph="chevron-right"/>
-      </Col>
-      </div>
-    </Row>
-  </Grid>
-)
-
-const InfoItems = (props) => (
-          <div className="infoitem">
-          <ul>
-          {
-          (props.data.length<2)?
-              <p>{props.data[0]}</p>
-              :props.data.map(
-                (member) => <li key={member.toString()}>{member} </li>
-            )
-          }
-          </ul>
-          </div>
-)
-
-
-const Info = (props) => (
-            <Grid>
-                <div className="infocomp">
-                  <Row>
-                    <InfoItems data={props.medinfo.diagnosis} />
-                  </Row>
-                  <Row>
-                    <InfoItems data={props.medinfo.medication}/>
-                  </Row>
-                  <Row>
-                    <InfoItems data={props.medinfo.advise}/>
-                  </Row>
-                  <Row>
-                    <InfoItems data={props.medinfo.tests}/>
-                  </Row>
-                </div>
-            </Grid>
-      )
 
 
 export default App
