@@ -160,9 +160,9 @@ class Content extends React.Component{
     this.state={
     //  main_chartdata:[]
     filtertext: "",
-    filtersource:""
+    filtersource:"dashpie"
     }
-    this.filtercallback.bind(this);
+    this.filtercallback=this.filtercallback.bind(this);
   }
   componentWillMount(){
   //  this.setState({
@@ -172,18 +172,25 @@ console.log("calls will mount");
   }
 
   filtercallback(c,k){
-      this.setState({  filtertext: c,filtersource:k  },function(){console.log("callback by",c,k);})
+      console.log("In callback",c,k);
+      this.setState({  filtertext: c,filtersource:k  },function(){console.log("callback by",c,k)});
       //
   }
 
+  componentWillReceiveProps(nextProps,nextState){
+    console.log("Receives props");
+    console.log(this.state.filtertext);
+  }
+
   componentDidUpdate(){
-    console.log("Difd update");
+    console.log("Did update");
+    console.log(this.state.filtertext,"--")
   }
 
   render(){
     console.log("is called");
     let mainchartsource=[];
-    if(this.state.filter&&this.state.filter.length!==0)
+    if(this.state.filtertext&&this.state.filtertext.length!==0)
     { console.log("happening");
       mainchartsource=this.props.mainCdata.filter(
         (member) => (member.category===this.state.filtertext)
@@ -191,7 +198,7 @@ console.log("calls will mount");
   }else{
       mainchartsource=this.props.mainCdata//this.state.main_chartdata;
   }
-
+    console.log(mainchartsource);
     return (
       <div>
         <Topcontent user={this.props.user} filterSource={this.state.filtersource} mainCdata={mainchartsource} avatar={this.props.avatar} family={this.props.family}/>
@@ -205,7 +212,7 @@ console.log("calls will mount");
 
 
 function todatestring(dtstr){
-  console.log("Date type: ",typeof(dtstr));
+  //console.log("Date type: ",typeof(dtstr));
   return dtstr.toDateString();
 }
 
@@ -306,7 +313,7 @@ class Dash extends React.Component{
                 that.props.onslice(sliceprop.data.categoryLabel,evts.sender.id);
               }else{
                 //console.log("y",evts.sender.id)
-                this.props.onslice("",evts.sender.id)
+                that.props.onslice("",evts.sender.id)
               }}
       }};
           return (
