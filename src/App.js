@@ -73,38 +73,36 @@ class App extends React.Component{
 
     // Above space is reserved for the fetch method
 
-    const high=100;
-    const normal=80;
-    const low=60;
+
     // We clean up  the BP data to something useable by the main bar chart.
-    let graphdata =  userdata.Bp.map(
-      function(member){
-         let obj={"label":0,"value":0,"color":"#72bb53","category":"Normal","displayValue":0,"tooltext":0};//,"sys":0,"dia":0};
-         obj.label = member.date;
-         obj.value = (member.sys<90||member.dia<60)? low:(member.sys>120||member.dia>90)?high:normal;
-         obj.color = (obj.value===high)?"#ff3823":(obj.value===low)?"#a8c6fa":"#72bb53"
-         obj.category = (obj.value===high)?"High":(obj.value===low)?"Low":"Normal"
-         obj.displayValue=obj.category;
-         obj.tooltext = "BP: "+(member.sys)+"/"+(member.dia);
-        // obj.dia = member.dia; // Unused
-         //obj.sys = member.sys; // Unused
+    let graphdata =  userdata.Bp.map( function(member){
+        const high=120;
+        const normal=80;
+        const low=40;
+         let calcval=(member.sys<90||member.dia<60)? low:(member.sys>120||member.dia>90)?high:normal;
+         let obj ={
+           "label":member.date,
+           "value":calcval,
+           "color":(calcval===high)?"#ff3823":(calcval===low)?"#a8c6fa":"#72bb53",
+           "category": (calcval===high)?"High":(calcval===low)?"Low":"Normal",
+           "tooltext": "BP: "+(member.sys)+"/"+(member.dia),
+           "displayValue": (calcval===high)?"High":(calcval===low)?"Low":"Normal"
+         };
+         // Pie data calculation inline
+        if(obj.category==="Low")
+              {  piedata.data[0].value+=1;}
+                    else if(obj.category==="High")
+                            { piedata.data[2].value+=1;}
+                                else { piedata.data[1].value+=1;}
          return obj;
        });
-       // This is where we calculate the pie chart data from mainchart data.
-       graphdata.forEach(
-         function(member)
-         {  // Pie data calc
-           (member.category==="Low")?piedata.data[0].value+=1:(member.category==="High")?piedata.data[2].value+=1:piedata.data[1].value+=1;
-           //console.log(member.label,member.value);
-         }
-       );
 
+    // Cleaned up
     this.setState( {
       user: userdata.username,
       family: userdata.fam_members,
       nextappt: new Date(userdata.appointment),
       medinfo: userdata.med_info,
-    //  medrec: graphdata,
       mainchartdata: graphdata,
       piechartdata: piedata
     } );
@@ -155,50 +153,51 @@ const Header = (props) => (
 // Stateful component
 
 class Content extends React.Component{
+
   constructor(){
     super();
     this.state={
     //  main_chartdata:[]
     filtertext: "",
-    filtersource:"dashpie"
+    filtersource:""
     }
     this.filtercallback=this.filtercallback.bind(this);
   }
-  componentWillMount(){
-  //  this.setState({
-  //    main_chartdata: this.props.mainCdata
-//    });
-console.log("calls will mount");
+
+  componentWillMount()
+  {
+    //console.log("calls will mount");
   }
 
   filtercallback(c,k){
-      console.log("In callback",c,k);
-      this.setState({  filtertext: c,filtersource:k  },function(){console.log("callback by",c,k)});
-      //
+    //  console.log("In callback",c,k);
+      this.setState({ filtertext: c,filtersource:k },function(){
+        console.log("state of mainchart",c,k)
+      });
   }
 
   componentWillReceiveProps(nextProps,nextState){
-    console.log("Receives props");
-    console.log(this.state.filtertext);
+  //  console.log("Receives props");
+  //  console.log(this.state.filtertext);
   }
 
   componentDidUpdate(){
-    console.log("Did update");
-    console.log(this.state.filtertext,"--")
+    //console.log("Did update");
+    //console.log(this.state.filtertext,"--")
   }
 
   render(){
-    console.log("is called");
+    //console.log("is called");
     let mainchartsource=[];
     if(this.state.filtertext&&this.state.filtertext.length!==0)
-    { console.log("happening");
+    { //console.log("happening");
       mainchartsource=this.props.mainCdata.filter(
         (member) => (member.category===this.state.filtertext)
     );
   }else{
       mainchartsource=this.props.mainCdata//this.state.main_chartdata;
   }
-    console.log(mainchartsource);
+    //console.log(mainchartsource);
     return (
       <div>
         <Topcontent user={this.props.user} filterSource={this.state.filtersource} mainCdata={mainchartsource} avatar={this.props.avatar} family={this.props.family}/>
@@ -290,32 +289,34 @@ class Dash extends React.Component{
       pieData :{}
     }
   }
+
   componentWillMount()
   {
     this.setState({
       pieData: this.props.pieCdata
     });
-
   }
+
   render(){
     var that = this;
     let piechart_obj = {
       id:"dashpie",
       type:"pie3d",
       dataFormat:"json",
-      enablemultislicing:"1",
+      enablemultislicing:"0",
       width:"100%",
       dataSource: this.props.pieCdata,
       events:{
         "slicingStart": function(evts,sliceprop){
              if(sliceprop.slicedState===false){
-                console.log(sliceprop.data.categoryLabel, evts.sender.id);
+                //console.log(sliceprop.data.categoryLabel, evts.sender.id);
                 that.props.onslice(sliceprop.data.categoryLabel,evts.sender.id);
               }else{
                 //console.log("y",evts.sender.id)
                 that.props.onslice("",evts.sender.id)
               }}
-      }};
+            }};
+
           return (
           <Grid>
           <Row>
