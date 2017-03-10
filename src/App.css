@@ -2,30 +2,25 @@
 .dash>ul{
   margin-top:0;
 }
-.brandname{
-
-}
-.Hideinxs{
-  display:none;
+.navbar-brand>img {
+  padding:0;
 }
 }
 
 .App {
-  border: 2px solid #000;
+  border: 2px solid #FFF;
   font-family: Helvetica;
   text-align:center;
+  text-overflow: clip;
 }
 
-.navbar{
-  background-color: blue;
-}
 .navbar-brand {
   display: flex;
-  align-items: center;
+  align-items:center;
 }
 .navbar-brand>img {
   float: left !important;
-  padding: 7px 20px;
+  padding: 10px 20px 10px 0px;
   height: 80px;
 }
 
@@ -54,9 +49,9 @@
 .infoitem{
   text-transform: capitalize;
   margin:2% 4% 2% 4%;
-  font-size: 1.5rem;
-  height: 70px;
+  font-size: 1em;
   background-color: #337ab7;
+  min-height:60px;
   color: #FFF;
   padding:1%;
   border: 1px solid #626262;

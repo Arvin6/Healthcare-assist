@@ -54,7 +54,6 @@ var piedata = {
   ]
 }
 
-
 class App extends React.Component{
   constructor(){
     super();
@@ -132,10 +131,8 @@ const Header = (props) => (
   <Navbar collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
-        <div>
           <Image src={logo} responsive />
-          <div className="brandname">Personal Healthcare Assist</div>
-        </div>
+          <p>Personal Healthcare Assist</p>
         </Navbar.Brand>
         <Navbar.Toggle/>
       </Navbar.Header>
@@ -166,7 +163,7 @@ class Content extends React.Component{
 
   componentWillMount()
   {
-    //console.log("calls will mount");
+    //console.log("Content will mount");
   }
 
   filtercallback(c,k){
@@ -177,7 +174,7 @@ class Content extends React.Component{
   }
 
   componentWillReceiveProps(nextProps,nextState){
-  //  console.log("Receives props");
+    console.log("Receives props");
   //  console.log(this.state.filtertext);
   }
 
@@ -233,7 +230,7 @@ class Topcontent extends React.Component{
                  "yAxisName": "Reading",
                  "usePlotGradientColor":"0",
                  "theme": "ocean",
-                 "enablemultislicing":"1",
+                 "enablemultislicing":"0",
                  "showyaxisvalues":"0",
                  "showtooltip":"1"
                  },
@@ -251,7 +248,7 @@ class Topcontent extends React.Component{
     <div>
       <Grid>
         <Row>
-            <Col lg={2} md={2} sm={3} xs={5} xsOffset={3} mdOffset={0} smOffset={0} lgOffset={0}>
+            <Col lg={2} md={2} sm={3} xs={5} xsOffset={1} mdOffset={0} smOffset={0} lgOffset={0}>
 
               <div className="avatardiv">
                 <Image src={this.props.avatar} alt={this.props.user} responsive />
