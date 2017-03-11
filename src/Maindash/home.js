@@ -7,7 +7,6 @@ class Homecontent extends React.Component{
   constructor(){
     super();
     this.state={
-    //  main_chartdata:[]
     filtertext: "",
     filtersource:""
     }
@@ -22,25 +21,25 @@ class Homecontent extends React.Component{
   filtercallback(c,k){
     //  console.log("In callback",c,k);
       this.setState({ filtertext: c,filtersource:k },function(){
-        console.log("state of mainchart",c,k)
+        console.debug("state of mainchart",c,k)
       });
   }
 
   componentWillReceiveProps(nextProps,nextState){
-    console.log("Receives props");
+    console.debug("Receives props");
   //  console.log(this.state.filtertext);
   }
 
   componentDidUpdate(){
-    //console.log("Did update");
+    //console.debug("Did update");
     //console.log(this.state.filtertext,"--")
   }
 
   render(){
-    //console.log("is called");
+    //console.debug("rendered");
     let mainchartsource=[];
     if(this.state.filtertext&&this.state.filtertext.length!==0)
-    { //console.log("happening");
+    {
       mainchartsource=this.props.mainCdata.filter(
         (member) => (member.category===this.state.filtertext)
     );

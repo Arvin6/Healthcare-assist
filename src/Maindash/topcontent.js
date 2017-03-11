@@ -5,6 +5,7 @@ import { Grid, Row, Col, MenuItem, ButtonGroup, DropdownButton, Image } from 're
 import Fusioncharts from 'fusioncharts'
 import charts from 'fusioncharts/fusioncharts.charts'
 import ReactFC from 'react-fusioncharts'
+import '../App.css'
 charts(Fusioncharts)
 
 
@@ -16,16 +17,20 @@ class Topcontent extends React.Component{
                  "subcaption": "Blood Pressure",
                  "xAxisName": "Days",
                  "yAxisName": "Reading",
-                 "usePlotGradientColor":"0",
+                 "lineThickness":"10",
+                 "anchorRadius":"7",
                  "theme": "ocean",
-                 "enablemultislicing":"0",
                  "showyaxisvalues":"0",
                  "showtooltip":"1"
                  },
-      data:      this.props.mainCdata
+     "dataset":[{
+       "seriesName": "Health data",
+       //"renderAs": "line",
+        data:      this.props.mainCdata
+     }],
                 }
     let mainchart_config = {
-                  type: "column3d",
+                  type: "line",
                   width: "100%",
                   dataFormat:"json",
                   dataSource:chartData,

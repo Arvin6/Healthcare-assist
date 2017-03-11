@@ -14,16 +14,15 @@ class Dash extends React.Component{
       "id":"dashpie",
       "type":"pie3d",
       "dataFormat":"json",
-      "enableMultiSlicing":"0",
       "width":"100%",
       "dataSource": this.props.pieCdata,
       "events":{
         "slicingStart": function(evts,sliceprop){
              if(sliceprop.slicedState===false){
-                //console.log(sliceprop.data.categoryLabel, evts.sender.id);
+                //console.debug(sliceprop.data.categoryLabel, evts.sender.id);
                 that.props.onslice(sliceprop.data.categoryLabel,evts.sender.id);
               }else{
-                //console.log("y",evts.sender.id)
+                //console.debug("y",evts.sender.id)
                 that.props.onslice("",evts.sender.id)
               }}
             }};

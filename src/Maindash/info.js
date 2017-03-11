@@ -1,10 +1,11 @@
 import React from 'react'
-import {Grid, Row, Col} from 'react-bootstrap'
+import {Grid, Row} from 'react-bootstrap'
+
 const InfoItems = (props) => (
           <div className="infoitem">
           <ul>
           {
-          (props.data&&props.data.length===1)?    <p>{props.data[0]}</p>
+          (props.data&&props.data.length===1)?  <div className="singleitem">{props.data[0]}</div>
                                 :props.data.map( (member) => <li key={member.toString()}>{member} </li> )
           }
           </ul>

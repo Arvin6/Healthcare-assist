@@ -2,37 +2,15 @@ import React from 'react'
 import './App.css'
 import Header from './Maindash/header'
 import Homecontent from './Maindash/home'
-
 import placeholder from '../avatar_placeholder.png'
-// This is for the chart rendering
-
-var userdata = {
-  username: "user_name",
-
-  fam_members: [{Name:"User1"},{Name:"User2"},{Name:"User3"}],
-
-  appointment: ["2017","03","21"],
-
-  med_info:{
-      "diagnosis":["High blood pressure leading to cardiac issues (initial stage)"],
-      "medication":["Envas6", "Beplex forte", "dolovin", "Nukast", "Pentaloc"],
-      "advise":["Avoid oily food", "decrease carbohydrate intake"],
-      "tests":["Renal function test", "Heart function test"]
-    },
-
-    Bp:[
-           {date:"21-02-17",sys:100,dia:80},
-           {date:"23-02-17",sys:110,dia:70},
-           {date:"25-02-17",sys:120,dia:90},
-           {date:"27-02-17",sys:140,dia:95},
-           {date:"01-03-17",sys:80, dia:90},
-           {date:"03-03-17",sys:100,dia:95}
-    ],
-}
-
-
+// JSON
+import userdata from '../data.json'
 // ^ The sample json
 var piedata = {
+  chart:{
+    "enableMultiSlicing":"0",
+    "showValues":"0"
+  },
   data:[
     {
       label: "Low",
@@ -66,7 +44,6 @@ class App extends React.Component{
     };
   }
   componentWillMount(){
-
     // This is where we get all the data.
 
     // Above space is reserved for the fetch method
@@ -108,16 +85,15 @@ class App extends React.Component{
   render(){
     return (
       <div className="App">
-      <Header/>
-      <Homecontent user={this.state.user}
-               family={this.state.family}
-               avatar={this.state.avatar}
-               apptdate={this.state.nextappt}
-               medinfo={this.state.medinfo}
-               mainCdata={this.state.mainchartdata}
-               pieCdata={this.state.piechartdata}
-               />
-
+              <Header />
+              <Homecontent user={this.state.user}
+                           family={this.state.family}
+                           avatar={this.state.avatar}
+                           apptdate={this.state.nextappt}
+                           medinfo={this.state.medinfo}
+                           mainCdata={this.state.mainchartdata}
+                           pieCdata={this.state.piechartdata}
+                           />
       </div>
     );
   }

@@ -1,13 +1,13 @@
 import React from 'react'
 import logo from './logo.svg'
-import {Image, MenuItem, Grid, Row, Col, Glyphicon, Navbar, NavItem, Nav, NavDropdown } from 'react-bootstrap'
+import {Image, MenuItem, Glyphicon, Navbar, NavItem, Nav, NavDropdown } from 'react-bootstrap'
 
 const Header = (props) => (
   <Navbar collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
           <Image src={logo} responsive />
-          <p>Personal Healthcare Assist</p>
+          <h5>Personal Healthcare Assist</h5>
         </Navbar.Brand>
         <Navbar.Toggle/>
       </Navbar.Header>
