@@ -1,15 +1,25 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
-import Notfound from './notfound'
-import {Router, Route, Link, browserHistory} from 'react-router'
+import React from 'react';
+//import App from './App';
+import Header from './Mainpage/header';
+import Home from './Mainpage/Home';
+import Notfound from './notfound';
+import Feed from './feed/feedlayout'
+import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 
-ReactDOM.render(
+
+const Test = (props) => (
+  <p>Test component</p>
+)
+
+const MyRouter = (props) => (
   <Router history={browserHistory}>
-      <Route path="/" component={App} />
-      <Route path="test" component={Test} />
-      <Route path="*" component={Notfound}/>
-  </Router>  ,
-  document.getElementById('root')
+          <Route path="/" component={Header}>
+              <IndexRoute component={Home} />
+              <Route path="test" component={Feed} />
 
+          </Route>
+        <Route path="*" component={Notfound}/>
+  </Router>
 );
+
+export default MyRouter;

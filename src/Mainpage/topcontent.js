@@ -1,11 +1,10 @@
 import React from 'react'
-//import './App.css'
 import { Grid, Row, Col, MenuItem, ButtonGroup, DropdownButton, Image } from 'react-bootstrap'
 // This is for fusioncharts
 import Fusioncharts from 'fusioncharts'
 import charts from 'fusioncharts/fusioncharts.charts'
 import ReactFC from 'react-fusioncharts'
-import '../App.css'
+
 charts(Fusioncharts)
 
 

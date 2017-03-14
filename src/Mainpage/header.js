@@ -3,6 +3,7 @@ import logo from './logo.svg'
 import {Image, MenuItem, Glyphicon, Navbar, NavItem, Nav, NavDropdown } from 'react-bootstrap'
 
 const Header = (props) => (
+<div>
   <Navbar collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
@@ -20,6 +21,8 @@ const Header = (props) => (
             </Nav>
           </Navbar.Collapse>
   </Navbar>
-  )
+  <div id="content-wrapper">{props.children}</div>
+</div>
+)
 
 export default Header

@@ -1,5 +1,4 @@
 @media(max-width: 761px){
-
 .dash>ul{
   margin-top:0;
 }
@@ -9,7 +8,6 @@
 }
 
 * {
-  text-align: center;
   font-family: Helvetica;
   text-overflow: ellipsis;
 }
