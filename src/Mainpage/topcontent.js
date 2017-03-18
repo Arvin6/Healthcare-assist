@@ -4,35 +4,55 @@ import { Grid, Row, Col, MenuItem, ButtonGroup, DropdownButton, Image } from 're
 import Fusioncharts from 'fusioncharts'
 import charts from 'fusioncharts/fusioncharts.charts'
 import ReactFC from 'react-fusioncharts'
-
+// init charts
 charts(Fusioncharts)
 
 
 class Topcontent extends React.Component{
-  render(){
+componentDidUpdate(){
+  console.log("did update topcontent", this.props.mainCdata);
+}
+shouldComponentUpdate(){
+  console.log("Should Component Update - top");
+  return true;
+}
+componentWillMount()
+{
+  console.log("Will mount of topcontent",this.props.mainCdata);
+}
+
+render(){
     let chartData  = {
       chart:    {
-                "caption": "Health trend",
+                 "caption": "Health trend",
+                 "bgColor": "#ffffff",
+                 "canvasBgColor": "#ffffff",
+                 "showBorder": "0",
+                 "showCanvasBorder": "0",
+                 "toolTipBgColor" : "#000000",
+                 "toolTipColor": "#ffffff",
+                 "toolTipPadding": "10",
+                 "toolTipBgAlpha": "80",
                  "subcaption": "Blood Pressure",
                  "xAxisName": "Days",
                  "yAxisName": "Reading",
                  "lineThickness":"10",
-                 "anchorRadius":"7",
-                 "theme": "ocean",
+                 "anchorRadius":"5",
                  "showyaxisvalues":"0",
-                 "showtooltip":"1"
+                 "showtooltip":"1",
+                 "showAlternateHGridColor": "0",
                  },
      "dataset":[{
        "seriesName": "Health data",
-       //"renderAs": "line",
-        data:      this.props.mainCdata
+       "renderAs"  : "line",
+        "data"     :  this.props.mainCdata
      }],
                 }
     let mainchart_config = {
                   type: "line",
                   width: "100%",
                   dataFormat:"json",
-                  dataSource:chartData,
+                  dataSource: chartData,
                   eventSource: this.props.filtersource,
                   impactedBy:['dashpie']
                 }
@@ -59,7 +79,7 @@ class Topcontent extends React.Component{
 
             <div className="main-trend">
                               <ReactFC id="main-trend"
-                               {...mainchart_config}
+                              {...mainchart_config}
                                />
             </div>
 

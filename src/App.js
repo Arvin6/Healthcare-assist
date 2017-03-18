@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import Home from'./Mainpage/Home'
+import Homecontent from'./Mainpage/homecontent'
 
 class App extends React.Component{
   componentWillMount(){
@@ -10,7 +10,7 @@ class App extends React.Component{
   render(){
     return (
       <div className="App">
-          <Home/>
+          <Homecontent/>
       </div>
     );
   }

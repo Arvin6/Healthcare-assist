@@ -13,23 +13,37 @@ const InfoItems = (props) => (
 )
 
 
-const Info = (props) => (
+class Info extends React.Component{
+render(){
+  return(
             <Grid>
                 <div className="infocomp">
                   <Row>
-                    <InfoItems data={props.medinfo.diagnosis} />
+                    <InfoItems key="diagnosis" data={this.props.diagnosis} />
                   </Row>
                   <Row>
-                    <InfoItems data={props.medinfo.medication}/>
+                    <InfoItems key="medication" data={this.props.medication}/>
                   </Row>
                   <Row>
-                    <InfoItems data={props.medinfo.advise}/>
+                    <InfoItems key="advise" data={this.props.advise}/>
                   </Row>
                   <Row>
-                    <InfoItems data={props.medinfo.tests}/>
+                    <InfoItems key="tests" data={this.props.tests}/>
                   </Row>
                 </div>
             </Grid>
-      )
+      )}
+}
+
+Info.defaultProps = {
+  diagnosis: ["Diagnosis"],
+  medication: ["Medication"],
+  advise: ["Advise"],
+  tests: ["Tests"]
+}
+
+Info.propTypes = {
+  medinfo : React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.string))
+}
 
   export default Info
