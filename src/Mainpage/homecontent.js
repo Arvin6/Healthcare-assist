@@ -5,7 +5,6 @@ import placeholder from '../avatar_placeholder.png'
 import Appointment from './appointment'
 import '../App.css'
 import Info from './info'
-//import udata from '../home_data.json';
 
 class Homecontent extends React.Component{
   constructor(){
