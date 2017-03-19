@@ -13,7 +13,7 @@ componentDidUpdate(){
   console.log("did update topcontent", this.props.mainCdata);
 }
 shouldComponentUpdate(){
-  console.log("Should Component Update - top");
+  console.log("Should Component Update - topcontent");
   return true;
 }
 componentWillMount()

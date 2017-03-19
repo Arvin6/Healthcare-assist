@@ -6,8 +6,15 @@
 .navbar-brand>img {
   padding:0;
 }
+.panel{
+  height:100px;
+  margin:0;
+}
 }
 
+.panel-elements{
+  padding: 15% 0;
+}
 * {
   font-family: Helvetica;
   text-overflow: ellipsis;
