@@ -8,8 +8,8 @@ function todatestring(dtstr){
 
 function datesbetween(date2){
   let today = new Date();
-  let diff = Math.abs(date2.getTime() - today.getTime());
-  return (Math.ceil( diff / (1000*3600*24) ))-1;
+  let diff = date2.getTime() - today.getTime();
+  return (diff<0)? 0 : (Math.ceil( diff / (1000*3600*24) ));
 }
 
 
@@ -19,6 +19,9 @@ const Appointment = (props) => (
       <div className="remainder">
       <Col lg={11} md={11} sm={11} xs={11}>
           {
+            (props.date==='0')?
+            <p>No appointments :)</p>
+            :
             <p>Next appointment is on {todatestring(props.date)} (in {datesbetween(props.date)} days) </p>
           }
       </Col>

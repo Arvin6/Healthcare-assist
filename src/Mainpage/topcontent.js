@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Row, Col, MenuItem, ButtonGroup, DropdownButton, Image } from 'react-bootstrap'
+import { Grid, Row, Col, MenuItem, ButtonGroup, DropdownButton, Image, Glyphicon } from 'react-bootstrap'
 // This is for fusioncharts
 import Fusioncharts from 'fusioncharts'
 import charts from 'fusioncharts/fusioncharts.charts'
@@ -7,18 +7,17 @@ import ReactFC from 'react-fusioncharts'
 // init charts
 charts(Fusioncharts)
 
-
 class Topcontent extends React.Component{
 componentDidUpdate(){
-  console.log("did update topcontent", this.props.mainCdata);
+  //console.log("did update topcontent", this.props.mainCdata);
 }
 shouldComponentUpdate(){
-  console.log("Should Component Update - topcontent");
+//  console.log("Should Component Update - topcontent");
   return true;
 }
 componentWillMount()
 {
-  console.log("Will mount of topcontent",this.props.mainCdata);
+  //console.log("Will mount of topcontent",this.props.mainCdata);
 }
 
 render(){
@@ -63,19 +62,23 @@ render(){
             <Col lg={2} md={2} sm={3} xs={5} xsOffset={1} mdOffset={0} smOffset={0} lgOffset={0}>
 
               <div className="avatardiv">
-                <Image src={this.props.avatar} alt={this.props.user} responsive />
+                <Image id="avatarimg" src={this.props.avatar} alt="Avatar" responsive />
                 <ButtonGroup justified>
                   <DropdownButton id="familydropdown" bsStyle="primary" title={this.props.user}>
                     {
+                      this.props.family.length<1?
+                      <MenuItem>...</MenuItem>
+                      :
                       this.props.family.map( (member) =>
                               <MenuItem key={member.Name.toString()}> {member.Name} </MenuItem> )
                     }
+                    <MenuItem key="addfam"><Glyphicon glyph="plus"/> Add member</MenuItem>
                   </DropdownButton>
                 </ButtonGroup>
               </div>
 
             </Col>
-            <Col xsHidden md={7} sm={8} lg={8} smOffset={1} mdOffset={2} lgOffset={2}>
+            <Col xs={12} md={7} sm={8} lg={8} smOffset={1} mdOffset={2} lgOffset={2}>
 
             <div className="main-trend">
                               <ReactFC id="main-trend"
