@@ -2,7 +2,7 @@ import React from 'react'
 import logo from './logo.svg'
 import {Image, MenuItem, Glyphicon, Navbar, NavItem, Nav, NavDropdown } from 'react-bootstrap'
 import AuthService from '../Utils/Authservice'
-
+import {LinkContainer} from 'react-router-bootstrap'
 
 class Header extends React.Component{
   static contextTypes = {
@@ -34,13 +34,23 @@ return (
         <Navbar.Toggle/>
       </Navbar.Header>
           <Navbar.Collapse>
+          <Nav pullLeft>
+             <LinkContainer to="/home">
+              <NavItem>Home</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/feed">
+              <NavItem>Feed</NavItem>
+            </LinkContainer>
+          </Nav>
             <Nav pullRight>
                 <NavItem><Glyphicon glyph="envelope"/></NavItem>
                     <NavDropdown id="notifs" eventKey={3} title="Notifications">
                         <MenuItem eventKey={3.1}>No new notifications</MenuItem>
 
                     </NavDropdown>
-                <NavItem eventKey={0} onClick={this.logout.bind(this)}> Logout </NavItem>
+               <LinkContainer to="/logout">
+                <NavItem eventKey={0}> Logout </NavItem>
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
   </Navbar>

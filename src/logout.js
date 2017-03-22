@@ -12,10 +12,8 @@ render(){
   auth.logout();
   return(
     <div className="container">
-    <div className="panels">
-    <p className="panel-elements">Logged out</p>
+    <h4>You have Successfully Logged out</h4>
     <Link to='/login'>Login again</Link>
-    </div>
     </div>
   )
 }

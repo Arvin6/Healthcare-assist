@@ -43,7 +43,7 @@ class Homecontent extends React.Component{
   componentDidMount(){
     console.log("Did mount");
     var that = this;
-    var userid=this.props.profile.identities[0].user_id;
+    var userid=this.props.profile.user_id;
     var url = '/api/'+userid+'/trends';
     console.log(url);
     // This is where we get all the data.

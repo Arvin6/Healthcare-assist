@@ -50,7 +50,7 @@ class App extends React.Component{
                     <Route path="feed" component={Feed}/>
               </Route>
               <Route path="login" component={LoginPage} onEnter={checkLogin} />
-              <Route path="logout" component={Logout} />
+              <Route path="logout" component={Logout} onEnter={requireAuth}/>
           </Route>
         <Route path="*" component={Notfound} onEnter={requireAuth}/>
   </Router>

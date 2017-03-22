@@ -11,7 +11,7 @@ class Feed extends React.Component{
       }
   }
   componentWillMount(){
-    var userid=this.props.auth.getProfile().identities[0].user_id
+    var userid=this.props.auth.getProfile().user_id
     console.log(userid);
     //Fetching from API server
     fetch('/api/'+userid+'/feeddata')
